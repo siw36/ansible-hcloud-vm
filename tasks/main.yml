@@ -1,0 +1,51 @@
+---
+- name: Install local dependencies
+  pip:
+    name: hcloud
+    state: latest
+    extra_args: --user
+
+- name: Print info
+  include_tasks: info.yml
+  when: getInfoOnly | bool
+
+- name: Create SSH keys
+  hcloud_ssh_key:
+    api_token: "{{ hcloudBearer }}"
+    name: "{{ sshKey.name }}"
+    public_key: "{{ sshKey.value }}"
+    state: "{{ sshKey.state }}"
+
+- name: Initialize empty list
+  set_fact:
+    createdServers: []
+
+- name: Create server
+  hcloud_server:
+    api_token: "{{ hcloudBearer }}"
+    name: "{{ item.name }}"
+    server_type: "{{ item.size }}"
+    image: "{{ item.image }}"
+    location: "{{ item.location }}"
+    backups: "{{ item.backup | bool }}"
+    ssh_keys:
+      - "{{ sshKey.name }}"
+    state: "{{ item.state }}"
+    labels: "{{ item.labels }}"
+  loop: "{{ deployments }}"
+  register: deployedServers
+
+- include_tasks: volume.yml
+  loop: "{{ deployments }}"
+  loop_control:
+    loop_var: server
+
+- name: Create server inventory
+  set_fact:
+    inventoryServers: "{{ inventoryServers | default([]) + [ {'server': item.hcloud_server.name, 'ipv4': item.hcloud_server.ipv4_address, 'ipv6': item.hcloud_server.ipv6 } ] }}"
+  loop: "{{ deployedServers.results }}"
+  when: deployedServers.results.0.hcloud_server is defined
+
+- name: Print server inventory and public IPs
+  debug:
+    msg: "{{ inventoryServers | default('No servers present') }}"

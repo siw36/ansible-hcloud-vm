@@ -1,0 +1,29 @@
+---
+#getInfoOnly: false
+
+hcloudBearer: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+sshKey:
+  name: root
+  value: ssh-rsa xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx root
+  state: present
+
+deployments:
+  - name: test0.nodes.replicas.io
+    state: absent # (present|started|stopped|restarted|absent|rebuild)
+    size: cx11
+    location: hel1
+    image: centos-7
+    backup: false
+    sshKeys:
+      - siw
+    labels:
+        project: replicas.io
+        stage: prod
+        location: helsinki
+    volumes:
+      - name: test0.nodes.replicas.io-data0
+        state: absent # (present|absent)
+        size: 10
+        automount: true
+        format: xfs # (xfs|ext4)

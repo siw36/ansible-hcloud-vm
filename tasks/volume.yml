@@ -1,0 +1,11 @@
+---
+- name: "Create volume for server: {{ server.name }}"
+  hcloud_volume:
+    api_token: "{{ hcloudBearer }}"
+    name: "{{ item.name }}"
+    server: "{{ server.name }}"
+    format: "{{ item.format }}"
+    size: "{{ item.size }}"
+    state: "{{ item.state }}"
+  loop: "{{ lookup('list', server.volumes) }}"
+  when: server.volumes | length > 0

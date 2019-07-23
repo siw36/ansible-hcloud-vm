@@ -1,0 +1,25 @@
+---
+- name: Gather cloud server types
+  hcloud_server_type_facts:
+    api_token: "{{ hcloudBearer }}"
+  register: serverTypes
+
+- name: Gather cloud server images
+  hcloud_image_facts:
+    api_token: "{{ hcloudBearer }}"
+  register: serverImages
+
+- name: Gather cloud server locations
+  hcloud_datacenter_facts:
+    api_token: "{{ hcloudBearer }}"
+  register: datacenterLocations
+
+- name: Print info
+  debug:
+    msg: "{{ item }}"
+  loop:
+    - "{{ serverTypes }}"
+    - "{{ serverImages }}"
+    - "{{ datacenterLocations }}"
+
+- meta: end_play
