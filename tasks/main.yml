@@ -48,7 +48,7 @@
 
 - name: Add new hosts to the dynamic inventory
   add_host:
-    name: "{{ item.name }}"
+    name: "{{ item.server }}"
     groups: new_servers
     ansible_port: 22
     ansible_ssh_user: root
