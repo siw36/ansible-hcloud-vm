@@ -8,4 +8,4 @@
     size: "{{ item.size }}"
     state: "{{ item.state }}"
   loop: "{{ lookup('list', server.volumes) }}"
-  when: server.volumes | length > 0
+  when: (server.volumes is defined) and (server.volumes | length > 0)
