@@ -1,4 +1,6 @@
-ansible-hcloud-vm
+ansible-hcloud-vm  
+![Ansible Role](https://img.shields.io/ansible/role/42259.svg?color=blue) ![Ansible Quality Score](https://img.shields.io/ansible/quality/42259.svg?color=blue) ![Ansible Role Downloads](https://img.shields.io/ansible/role/d/42259.svg?color=blue)
+
 =========
 
 ![Hetzner Cloud](https://www.hetzner.de/themes/hetzner/images/logo/logo-hetzner-online.svg)  
