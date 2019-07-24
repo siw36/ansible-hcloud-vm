@@ -46,6 +46,15 @@
   loop: "{{ deployedServers.results }}"
   when: deployedServers.results.0.hcloud_server is defined
 
+- name: Add new hosts to the dynamic inventory
+  add_host:
+    name: "{{ item.name }}"
+    groups: new_servers
+    ansible_port: 22
+    ansible_ssh_user: root
+    ansible_host: "{{ item.ipv4 }}"
+  loop: "{{ inventoryServers }}"
+
 - name: Print server inventory and public IPs
   debug:
     msg: "{{ inventoryServers | default('No servers present') }}"
