@@ -3,7 +3,7 @@ ansible-hcloud-vm
 
 =========
 
-![Hetzner Cloud](https://www.hetzner.de/themes/hetzner/images/logo/logo-hetzner-online.svg)  
+<img src="https://www.hetzner.de/themes/hetzner/images/logo/logo-hetzner-online.svg" alt="Hetzner Cloud" height="50"/>
 
 This role deploys one or more virtual machines with additional disks in the hetzner cloud.  
 
