@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Robin Klussmann (siw36)
+  description: Role to deploy servers on Hetzner Cloud
+  company: replicas.io
+
+  license: GPL-3.0-only
+
+  min_ansible_version: 2.6
+
+  galaxy_tags:
+    - hcloud
+    - hetzner
+    - cloud
+    - pvovisioning
+    - deplyoment
+
+dependencies: []
